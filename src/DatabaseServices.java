@@ -70,6 +70,15 @@ public class DatabaseServices {
 
             if (rowsAffected > 0) {
                 System.out.println("Data with ID " + id + " deleted successfully.");
+
+                String updateSql = "UPDATE " + tableName + " SET id = id - 1 WHERE id > ?";
+                try(PreparedStatement update = con.prepareStatement(updateSql)){
+                    update.setInt(1,id);
+                    update.executeUpdate();
+                }catch (SQLException e){
+                    throw new RuntimeException(e);
+                }
+
             } else {
                 System.out.println("No data found with ID " + id + ".");
             }
@@ -105,6 +114,21 @@ public class DatabaseServices {
         }
     }
 
+    public static void updateStatus(String tableName,Integer id,Boolean status){
+        String sql5 = "UPDATE " + tableName + " SET state = ? WHERE id = ?";
+
+        try(Connection con = DriverManager.getConnection(url, userName, password);
+            PreparedStatement preparedStatement = con.prepareStatement(sql5);){
+
+            preparedStatement.setBoolean(1, status);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static int getNumberOfEntries(String tableName) {
         String sql4 = "SELECT COUNT(*) AS total_entries FROM " + tableName;
 
@@ -121,19 +145,4 @@ public class DatabaseServices {
         return entryNUM;
     }
 
-    public static int updateRow(String tableName) {
-        String sql4 = "SELECT COUNT(*) AS total_entries FROM " + tableName;
-
-        try (Connection con = DriverManager.getConnection(url, userName, password);
-             PreparedStatement preparedStatement = con.prepareStatement(sql4);
-             ResultSet rs = preparedStatement.executeQuery()) {
-
-            rs.next();
-            entryNUM = rs.getInt("total_entries");
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return entryNUM;
-    }
 }
