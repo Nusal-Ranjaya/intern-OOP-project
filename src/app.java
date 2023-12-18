@@ -1,8 +1,9 @@
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class app {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         do {
             automaticEmailSender.startNotification("personal");
@@ -13,9 +14,13 @@ public class app {
             System.out.println("Enter option type: \n"
                     + "1 - set a new reminder\n"
                     + "2 - view all reminders\n"
-                    + "3 - edit a current reminder status\n"
+                    + "3 - edit a current reminder state\n"
                     + "4 - delete a reminder\n"
-                    + "5 - send an email");
+                    + "5 - Add new customer\n"
+                    + "6 - view all customers\n"
+                    + "7 - change customer subscription\n"
+                    + "8 - send an email\n"
+                    + "9 - send email to all customers");
             int option = 0;
             try {
                 option = scanner.nextInt();
@@ -90,11 +95,29 @@ public class app {
                     }
                     break;
                 case 5:
+                    customerServices.addCustomer();
+                    break;
+                case 6:
+                    DatabaseServices.getAllData("customers");
+                    break;
+                case 7:
+                    System.out.println("id: ");
+                    int id = in.nextInt();
+                    System.out.println("state (true/false): ");
+                    Boolean status = in.nextBoolean();
+                    DatabaseServices.updateStatus("customers",id,status);
+                    break;
+                case 8:
                     mailServices.sendEmail();
                     break;
+                case 9:
+                    System.out.println("subject: ");
+                    String subject = in.nextLine();
+                    System.out.println("message : ");
+                    String message = in.nextLine();
+                    automaticEmailSender.sendEmailsToAllCustomers(message,subject);
+                    break;
             }
-
-
         }while(true);
 
     }

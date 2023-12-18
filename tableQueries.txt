@@ -1,0 +1,42 @@
+CREATE TABLE IF NOT EXISTS public.official
+(
+    id integer NOT NULL DEFAULT nextval('official_id_seq'::regclass),
+    date date NOT NULL,
+    "time" time without time zone NOT NULL,
+    priority integer,
+    state boolean,
+    text character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT official_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.official
+    OWNER to postgres;
+
+
+CREATE TABLE IF NOT EXISTS public.personal
+(
+    id integer NOT NULL DEFAULT nextval('personal_id_seq'::regclass),
+    date date NOT NULL,
+    "time" time without time zone NOT NULL,
+    priority integer,
+    state boolean,
+    text character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT personal_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.personal
+    OWNER to postgres;
+
+
+CREATE TABLE IF NOT EXISTS public.customers
+(
+    id integer NOT NULL,
+    name character varying(20) NOT NULL,
+    state boolean,
+    email character varying(100) COLLATE pg_catalog."default",
+    PRIMARY KEY (id)
+);

@@ -1,4 +1,4 @@
-Important:- It's required to have postgres SQL and add the external libraries provided in lib folder.
+Important:- It's required to have postgres SQL and add the external libraries provided in lib folder (activation,javax.mail and postgresql). Queries to create the tables are provided in tableQueries.txt
 
 
 
@@ -11,4 +11,4 @@ Open Close Principle:- Most of the methods were implemented in a way to use gene
 
 Liskov Substitution Principle:- In the program manageReminderPersonal and manageReminderOfficial has extended the abstract class ReminderServices, and it's a perfect substitution. For now above classes only have the methods of the Reminder Services class, but I made them, so it will be easier to add unique methods for each class if needed in the future.
 
-Other OOP concepts like inheritance, abstraction, and polymorphism have been implemented.
+Other OOP concepts like Inheritance, Abstraction, Encapsulation, and Polymorphism have been implemented.

@@ -145,4 +145,28 @@ public class DatabaseServices {
         return entryNUM;
     }
 
+    public static void addDataCustomer(Integer id,String name,Boolean subscribe, String text) {
+        String sql = "INSERT INTO  customers" + " (id, name,state,email) VALUES (?, ?, ?, ?)";
+
+        try (Connection con = DriverManager.getConnection(url, userName, password);
+             PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, name);
+            preparedStatement.setBoolean(3, subscribe);
+            preparedStatement.setString(4, text);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Successfully inserted data.");
+            } else {
+                System.out.println("Error inserting data.");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

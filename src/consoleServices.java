@@ -8,12 +8,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class consoleServices {
-    private static Date date;
-    private static Time time;
-    private static Integer priority;
-    private static Boolean state;
-    private static String text;
-
 
     public static Date readDate(){
         String dateString = readStringFromConsole("Enter date (YYYY-MM-DD): ");
