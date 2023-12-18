@@ -35,7 +35,7 @@ public class app {
                 case 1:
                     int choice = consoleServices.choose();
                     if(choice==1){
-                        mR_Personal.addReminder("personal");
+                        mR_Personal.addReminder("person");
                     }
                     else if (choice ==2) {
                         mR_Official.addReminder("official");
