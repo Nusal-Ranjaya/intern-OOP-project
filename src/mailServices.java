@@ -1,11 +1,10 @@
-import java.util.Properties;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class manageMails {
+public class mailServices {
     static void sendEmail() {
         String input, to, subject, message;
         Scanner in = new Scanner(System.in);

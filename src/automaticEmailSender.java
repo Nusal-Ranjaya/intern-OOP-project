@@ -1,6 +1,5 @@
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 
 public class automaticEmailSender  {
@@ -24,7 +23,7 @@ public class automaticEmailSender  {
                      if(rs.getDate(2).toString().equals(date.toString()) && !rs.getBoolean(5)){
                          DatabaseServices.updateStatus(tableName,rs.getInt(1),true);
                          String message=rs.getTime(3).toString()+": "+rs.getString(6);
-                         manageMails.sendEmailAuto(to,tableName,message);
+                         mailServices.sendEmailAuto(to,tableName,message);
 
                      }
                     }

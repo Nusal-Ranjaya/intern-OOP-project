@@ -1,9 +1,6 @@
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class app {
     public static void main(String[] args) {
 
@@ -22,11 +19,7 @@ public class app {
             int option = 0;
             try {
                 option = scanner.nextInt();
-            }catch(NumberFormatException e) {
-                System.out.println("Wrong input");
-
-                continue;
-            }catch(InputMismatchException e) {
+            }catch(NumberFormatException | InputMismatchException e) {
                 System.out.println("Wrong input");
 
                 continue;
@@ -97,7 +90,7 @@ public class app {
                     }
                     break;
                 case 5:
-                    manageMails.sendEmail();
+                    mailServices.sendEmail();
                     break;
             }
 

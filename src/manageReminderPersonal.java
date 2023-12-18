@@ -1,2 +1,2 @@
-public class manageReminderPersonal extends ReminderManager{
+public class manageReminderPersonal extends ReminderServices{
 }

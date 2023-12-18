@@ -30,8 +30,6 @@ public class EmailConfig {
     }
 
 
-
-
     public EmailConfig(String to, String subject, String text, String date) {
         super();
         this.to = to;

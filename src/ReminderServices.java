@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public abstract  class ReminderManager {
+public abstract  class ReminderServices {
 
     private Integer id;
     private Date date;
@@ -13,22 +13,17 @@ public abstract  class ReminderManager {
 
     void addReminder(String tableName){
         int pk= DatabaseServices.getNumberOfEntries(tableName);
-        DatabaseServices.addData(tableName,pk+1,consoleServices.readDate(),consoleServices.readTime(),consoleServices.readInt("Enter priority level: "),consoleServices.readBooleanFromConsole("Enter state: "),consoleServices.readStringFromConsole("Enter the text:"));
+        DatabaseServices.addData(tableName,pk+1, consoleServices.readDate(),consoleServices.readTime(),consoleServices.readInt("Enter priority level: "),consoleServices.readBooleanFromConsole("Enter state: "),consoleServices.readStringFromConsole("Enter the text:"));
     }
     void viewReminders(String tableName){
-
         DatabaseServices.getAllData(tableName);
     }
+
     void editReminder(String tableName,Integer id,Boolean status){
-        int choice = consoleServices.choose();
-        if(choice==1){
-            DatabaseServices.updateStatus(tableName,id,status);
-        }
-        else if (choice ==2) {}
-        else{
-            System.out.println("Wrong input!");
-        }
+        DatabaseServices.updateStatus(tableName,id,status);
+
     }
+
     void deleteReminder(String tableName){
         DatabaseServices.deleteDataById(tableName,consoleServices.readInt("Enter ID: "));
     }
