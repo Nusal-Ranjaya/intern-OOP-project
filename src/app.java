@@ -1,11 +1,11 @@
-import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class app {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args)  {
 
         do {
+            //send automatic email if there's reminder to be sent
             automaticEmailSender.startNotification("personal");
             automaticEmailSender.startNotification("official");
 
@@ -19,8 +19,9 @@ public class app {
                     + "5 - Add new customer\n"
                     + "6 - view all customers\n"
                     + "7 - change customer subscription\n"
-                    + "8 - send an email\n"
-                    + "9 - send email to all customers");
+                    + "8 - Remove customer from the table\n"
+                    + "9 - send an email\n"
+                    + "10 - send email to all customers");
             int option = 0;
             try {
                 option = scanner.nextInt();
@@ -35,12 +36,11 @@ public class app {
              manageReminderOfficial mR_Official = new manageReminderOfficial();
              manageReminderPersonal mR_Personal = new manageReminderPersonal();
 
-
             switch(option){
                 case 1:
                     int choice = consoleServices.choose();
                     if(choice==1){
-                        mR_Personal.addReminder("person");
+                        mR_Personal.addReminder("personal");
                     }
                     else if (choice ==2) {
                         mR_Official.addReminder("official");
@@ -64,18 +64,10 @@ public class app {
                 case 3:
                     int choice2 = consoleServices.choose();
                     if(choice2==1){
-                        System.out.println("id: ");
-                        int id = in.nextInt();
-                        System.out.println("status (true/false): ");
-                        Boolean status = in.nextBoolean();
-                        mR_Personal.editReminder("personal",id,status);
+                        mR_Personal.editReminder("personal",consoleServices.readInt("id: "), consoleServices.readBooleanFromConsole("state(true/false): "));
                     }
                     else if (choice2 ==2) {
-                        System.out.println("id: ");
-                        int id = in.nextInt();
-                        System.out.println("state (true/false): ");
-                        Boolean status = in.nextBoolean();
-                        mR_Official.editReminder("official",id,status);
+                        mR_Official.editReminder("official",consoleServices.readInt("id: "),consoleServices.readBooleanFromConsole("state(true/false): "));
                     }
                     else{
                         System.out.println("Wrong input!");
@@ -101,21 +93,16 @@ public class app {
                     DatabaseServices.getAllData("customers");
                     break;
                 case 7:
-                    System.out.println("id: ");
-                    int id = in.nextInt();
-                    System.out.println("state (true/false): ");
-                    Boolean status = in.nextBoolean();
-                    DatabaseServices.updateStatus("customers",id,status);
+                    customerServices.updateCustomer();
                     break;
                 case 8:
-                    mailServices.sendEmail();
+                    customerServices.removeCustomer();
                     break;
                 case 9:
-                    System.out.println("subject: ");
-                    String subject = in.nextLine();
-                    System.out.println("message : ");
-                    String message = in.nextLine();
-                    automaticEmailSender.sendEmailsToAllCustomers(message,subject);
+                    mailServices.sendEmail();
+                    break;
+                case 10:
+                    customerServices.mailToAll();
                     break;
             }
         }while(true);
