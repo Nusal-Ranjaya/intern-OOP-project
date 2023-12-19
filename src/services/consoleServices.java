@@ -14,7 +14,8 @@ public class consoleServices {
     public static Date readDate(){
         String dateString = readStringFromConsole("Enter date (YYYY-MM-DD): ");
         return Date.valueOf(dateString);
-    };
+    }
+
     public static Time readTime() {Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter time (HH:MM): ");
@@ -32,7 +33,7 @@ public class consoleServices {
             // You might want to handle the exception or prompt the user again
             throw new IllegalArgumentException("Invalid time format", e);
         }
-    };
+    }
 
     public static Integer readInt(String message){
         System.out.println(message);
@@ -42,7 +43,7 @@ public class consoleServices {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    };
+    }
 
     public static Boolean readBooleanFromConsole(String message) {
         System.out.print(message);
@@ -65,12 +66,12 @@ public class consoleServices {
     }
 
     public static  int  choose(){
-        String input;
         int val=0;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter option type: \n"
-                + "1 - personal\n"
-                + "2 - official");
+        System.out.println("""
+                Enter option type:\s
+                1 - personal
+                2 - official""");
         int option = 0;
         try {
             option = scanner.nextInt();
@@ -78,15 +79,11 @@ public class consoleServices {
             System.out.println("Wrong input");
         }
 
-        switch(option){
-            case 1:
-                val=1;
-                break;
-            case 2:
-                val= 2;
-                break;
-
-        }
+        val = switch (option) {
+            case 1 -> 1;
+            case 2 -> 2;
+            default -> val;
+        };
         return val;
     }
 

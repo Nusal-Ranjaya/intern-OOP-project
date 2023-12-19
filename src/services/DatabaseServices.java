@@ -40,6 +40,7 @@ public class DatabaseServices {
         }
     }
 
+    @SuppressWarnings("unused")
     public static String getData(String columnName, String tableName, Integer id) {
         String sql1 = "SELECT " + columnName + " FROM " + tableName + " WHERE id = ?";
 
@@ -120,7 +121,7 @@ public class DatabaseServices {
         String sql5 = "UPDATE " + tableName + " SET state = ? WHERE id = ?";
 
         try(Connection con = DriverManager.getConnection(url, userName, password);
-            PreparedStatement preparedStatement = con.prepareStatement(sql5);){
+            PreparedStatement preparedStatement = con.prepareStatement(sql5)){
 
             preparedStatement.setBoolean(1, status);
             preparedStatement.setInt(2, id);

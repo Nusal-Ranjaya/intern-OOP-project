@@ -10,21 +10,21 @@ import java.util.regex.Pattern;
 
 public class mailServices {
     public static void sendEmail() {
-        String input, to, subject, message;
+        String to, subject, message;
         Scanner in = new Scanner(System.in);
 
         System.out.println("To :");
         to = in.nextLine();
-        if (mailVarify(to) != true) {
+        if (!mailVarify(to)) {
             System.out.println("Check the given email address");
         } else {
             System.out.println("Subject :");
             subject = in.nextLine();
             System.out.println("Message :");
             message = in.nextLine();
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY/MM/dd");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             LocalDateTime now = LocalDateTime.now();
-            String currentDate = dtf.format(now).toString();
+            String currentDate = dtf.format(now);
             EmailConfig email1 = new EmailConfig(to, subject, message, currentDate);
             email1.sendActualEmail();
         }
@@ -32,12 +32,12 @@ public class mailServices {
 
     public static void sendEmailAuto(String to, String subject, String message) {
 
-        if (mailVarify(to) != true) {
+        if (!mailVarify(to)) {
             System.out.println("Check the given email address");
         } else {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY/MM/dd");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             LocalDateTime now = LocalDateTime.now();
-            String currentDate = dtf.format(now).toString();
+            String currentDate = dtf.format(now);
             EmailConfig email1 = new EmailConfig(to, subject, message, currentDate);
             email1.sendActualEmail();
         }
