@@ -1,10 +1,12 @@
+package services;
+
 import java.sql.*;
 
 public class DatabaseServices {
 
-    static String url = "jdbc:postgresql://localhost:5432/intern_OOP";
-    static String userName = "postgres";
-    static String password = "root";
+    public static String url = "jdbc:postgresql://localhost:5432/intern_OOP";
+    public static String userName = "postgres";
+    public static String password = "root";
 
     static String result;
     static int entryNUM;

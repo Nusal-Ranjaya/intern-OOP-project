@@ -1,6 +1,6 @@
+package services;
 import java.sql.*;
 import java.time.LocalDate;
-
 
 public class automaticEmailSender  {
 

@@ -1,7 +1,10 @@
+import services.*;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class app {
+    @SuppressWarnings("InfiniteLoopStatement")
     public static void main(String[] args)  {
 
         do {
@@ -9,20 +12,20 @@ public class app {
             automaticEmailSender.startNotification("personal");
             automaticEmailSender.startNotification("official");
 
-            String input;
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter option type: \n"
-                    + "1 - set a new reminder\n"
-                    + "2 - view all reminders\n"
-                    + "3 - edit a current reminder state\n"
-                    + "4 - delete a reminder\n"
-                    + "5 - Add new customer\n"
-                    + "6 - view all customers\n"
-                    + "7 - change customer subscription\n"
-                    + "8 - Remove customer from the table\n"
-                    + "9 - send an email\n"
-                    + "10 - send email to all customers");
-            int option = 0;
+            System.out.println("""
+                    Enter option type:\s
+                    1 - set a new reminder
+                    2 - view all reminders
+                    3 - edit a current reminder state
+                    4 - delete a reminder
+                    5 - Add new customer
+                    6 - view all customers
+                    7 - change customer subscription
+                    8 - Remove customer from the table
+                    9 - send an email
+                    10 - send email to all customers""");
+            int option;
             try {
                 option = scanner.nextInt();
             }catch(NumberFormatException | InputMismatchException e) {
@@ -30,8 +33,6 @@ public class app {
 
                 continue;
             }
-
-            Scanner in = new Scanner(System.in);
 
              manageReminderOfficial mR_Official = new manageReminderOfficial();
              manageReminderPersonal mR_Personal = new manageReminderPersonal();

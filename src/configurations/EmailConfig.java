@@ -1,3 +1,5 @@
+package configurations;
+
 import java.util.Properties;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,21 +1,23 @@
-public class manageReminderOfficial extends ReminderServices{
+import services.ReminderServices;
+
+public class manageReminderOfficial extends ReminderServices {
     @Override
-    void addReminder(String tableName) {
+    public void addReminder(String tableName) {
         super.addReminder(tableName);
     }
 
     @Override
-    void viewReminders(String tableName) {
+    public void viewReminders(String tableName) {
         super.viewReminders(tableName);
     }
 
     @Override
-    void editReminder(String tableName, Integer id, Boolean status) {
+    public void editReminder(String tableName, Integer id, Boolean status) {
         super.editReminder(tableName, id, status);
     }
 
     @Override
-    void deleteReminder(String tableName) {
+    public void deleteReminder(String tableName) {
         super.deleteReminder(tableName);
     }
 }
