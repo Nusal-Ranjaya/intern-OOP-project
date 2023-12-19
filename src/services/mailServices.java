@@ -15,7 +15,7 @@ public class mailServices {
 
         System.out.println("To :");
         to = in.nextLine();
-        if (!mailVarify(to)) {
+        if (mailVarify(to)) {
             System.out.println("Check the given email address");
         } else {
             System.out.println("Subject :");
@@ -25,20 +25,20 @@ public class mailServices {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             LocalDateTime now = LocalDateTime.now();
             String currentDate = dtf.format(now);
-            EmailConfig email1 = new EmailConfig(to, subject, message, currentDate);
+            EmailConfig email1 = new EmailConfig(to, subject, message);
             email1.sendActualEmail();
         }
     }
 
     public static void sendEmailAuto(String to, String subject, String message) {
 
-        if (!mailVarify(to)) {
+        if (mailVarify(to)) {
             System.out.println("Check the given email address");
         } else {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             LocalDateTime now = LocalDateTime.now();
             String currentDate = dtf.format(now);
-            EmailConfig email1 = new EmailConfig(to, subject, message, currentDate);
+            EmailConfig email1 = new EmailConfig(to, subject, message);
             email1.sendActualEmail();
         }
     }
@@ -47,7 +47,7 @@ public class mailServices {
         String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(address);
-        return matcher.matches();
+        return !matcher.matches();
     }
 
 

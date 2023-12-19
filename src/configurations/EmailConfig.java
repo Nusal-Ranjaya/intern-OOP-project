@@ -1,9 +1,5 @@
 package configurations;
-
 import java.util.Properties;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -12,17 +8,10 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
 public class EmailConfig {
-    private String to;
-    private String subject;
-    private String text;
-    private String date;
-
-    public EmailConfig() {
-        super();
-    }
-
+    private final String to;
+    private final String subject;
+    private final String text;
 
     public EmailConfig(String to, String subject, String text) {
         super();
@@ -31,26 +20,7 @@ public class EmailConfig {
         this.text = text;
     }
 
-
-    public EmailConfig(String to, String subject, String text, String date) {
-        super();
-        this.to = to;
-        this.subject = subject;
-        this.text = text;
-        this.date = date;
-    }
-
-
-    public String getDate() {
-        return date;
-    }
-
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-
+    @SuppressWarnings("CallToPrintStackTrace")
     public void sendActualEmail( ) {
 
 
@@ -68,8 +38,9 @@ public class EmailConfig {
         prop.put("mail.smtp.auth","true");
 
 
-        //passing user name and password to session object
+        //passing username and password to session object
         Session session=Session.getInstance(prop,new javax.mail.Authenticator() {
+            @SuppressWarnings("SpellCheckingInspection")
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("nuswarwick@gmail.com","xpbpjfnqjkzlqmzy");
             }
@@ -84,71 +55,11 @@ public class EmailConfig {
             message.setText(text);
 
             Transport.send(message);
-            DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            LocalDateTime date = LocalDateTime.now();
-
 
         }catch(MessagingException mex) {
             mex.printStackTrace();
         }
     }
-    public static <MessagingException> void SendInstantEmail(String to, String subject, String text ) {
 
 
-        //my email
-        String from="nuswarwick@gmail.com";
-        //host
-        String host="smtp.gmail.com";
-        //properties
-        Properties prop=System.getProperties();
-
-        //setting the server
-        prop.put("mail.smtp.host",host);
-        prop.put("mail.smtp.port","465");
-        prop.put("mail.smtp.ssl.enable","true");
-        prop.put("mail.smtp.auth","true");
-
-
-        //passing user name and password to session object
-        Session session=Session.getInstance(prop,new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("nuswarwick@gmail.com","xpbpjfnqjkzlqmzy");
-            }
-        });
-
-        session.setDebug(true);
-        try {
-            MimeMessage message= new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
-            message.setSubject(subject);
-            message.setText(text);
-
-            Transport.send(message);
-            DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            LocalDateTime date = LocalDateTime.now();
-
-            System.out.println("email sent ");
-        } catch (javax.mail.MessagingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public String getTo() {
-        return to;
-    }
-    public void setTo(String to) {
-        this.to = to;
-    }
-    public String getSubject() {
-        return subject;
-    }
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-    public String getText() {
-        return text;
-    }
-    public void setText(String text) {
-        this.text = text;
-    }
 }
