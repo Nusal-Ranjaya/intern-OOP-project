@@ -1,8 +1,8 @@
-package services;
-
+package serviceProviders;
+import interfaces.dataServicesInterface;
 import java.sql.*;
 
-public class DatabaseServices {
+public class DatabaseServicesPostgresql implements dataServicesInterface {
 
     public static String url = "jdbc:postgresql://localhost:5432/intern_OOP";
     public static String userName = "postgres";
@@ -11,7 +11,7 @@ public class DatabaseServices {
     static String result;
     static int entryNUM;
 
-    public static void getAllData(String tableName) {
+    public void getAllData(String tableName) {
         String sql = "SELECT * FROM " + tableName;
 
         try (Connection con = DriverManager.getConnection(url, userName, password);
@@ -41,7 +41,7 @@ public class DatabaseServices {
     }
 
     @SuppressWarnings("unused")
-    public static String getData(String columnName, String tableName, Integer id) {
+    public String getData(String columnName, String tableName, Integer id) {
         String sql1 = "SELECT " + columnName + " FROM " + tableName + " WHERE id = ?";
 
         try (Connection con = DriverManager.getConnection(url, userName, password);
@@ -61,7 +61,7 @@ public class DatabaseServices {
         return result;
     }
 
-    public static void deleteDataById(String tableName, int id) {
+    public void deleteDataById(String tableName, int id) {
         String sql2 = "DELETE FROM " + tableName + " WHERE id = ?";
 
         try (Connection con = DriverManager.getConnection(url, userName, password);
@@ -91,7 +91,7 @@ public class DatabaseServices {
         }
     }
 
-    public static void addData(String tableName, Integer id, Date date, Time time, Integer priority, Boolean state, String text) {
+    public void addData(String tableName, Integer id, Date date, Time time, Integer priority, Boolean state, String text) {
         String sql = "INSERT INTO " + tableName + " (id, date, time, priority, state, text) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(url, userName, password);
@@ -117,7 +117,7 @@ public class DatabaseServices {
         }
     }
 
-    public static void updateStatus(String tableName,Integer id,Boolean status){
+    public void updateStatus(String tableName, Integer id, Boolean status){
         String sql5 = "UPDATE " + tableName + " SET state = ? WHERE id = ?";
 
         try(Connection con = DriverManager.getConnection(url, userName, password);
@@ -132,7 +132,7 @@ public class DatabaseServices {
         }
     }
 
-    public static int getNumberOfEntries(String tableName) {
+    public int getNumberOfEntries(String tableName) {
         String sql4 = "SELECT COUNT(*) AS total_entries FROM " + tableName;
 
         try (Connection con = DriverManager.getConnection(url, userName, password);
@@ -148,7 +148,7 @@ public class DatabaseServices {
         return entryNUM;
     }
 
-    public static void addDataCustomer(Integer id,String name,Boolean subscribe, String text) {
+    public void addDataCustomer(Integer id, String name, Boolean subscribe, String text) {
         String sql = "INSERT INTO  customers" + " (id, name,state,email) VALUES (?, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(url, userName, password);

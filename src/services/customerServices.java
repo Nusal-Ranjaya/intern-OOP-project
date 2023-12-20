@@ -1,26 +1,39 @@
 package services;
 
-import java.sql.SQLException;
+import interfaces.bulkMessageInterface;
+import interfaces.dataServicesInterface;
+import interfaces.displayInterface;
+import serviceProviders.DatabaseServicesPostgresql;
+import serviceProviders.bulkEmailSender;
+import serviceProviders.consoleServices;
+
 
 public class customerServices {
-    public static void addCustomer(){
-        int pk= DatabaseServices.getNumberOfEntries("customers");
-        DatabaseServices.addDataCustomer(pk+1, consoleServices.readStringFromConsole("Customer name: "), consoleServices.readBooleanFromConsole("Enter subscription(true/false): "), consoleServices.readStringFromConsole("Enter email:"));
+    displayInterface console = new consoleServices();
+    displayServices display= new displayServices(console);
+    bulkMessageInterface emailBulk = new bulkEmailSender();
+    bulkMessageSender bulkMessage= new bulkMessageSender(emailBulk);
+
+    dataServicesInterface dbServicesPost =new DatabaseServicesPostgresql();
+    databaseServices dbServices = new databaseServices(dbServicesPost);
+    public void addCustomer(){
+        int pk= dbServices.getNumberOfEntries("customers");
+        dbServices.addDataCustomer(pk+1, display.readStringFromConsole("Customer name: "), display.readBooleanFromConsole("Enter subscription(true/false): "), display.readStringFromConsole("Enter email:"));
     }
 
-    public static void removeCustomer(){
-        DatabaseServices.deleteDataById("customers", consoleServices.readInt("Enter id: "));
+    public void removeCustomer(){
+        dbServices.deleteDataById("customers", display.readInt("Enter id: "));
     }
 
-    public static void mailToAll(){
-        try {
-            automaticEmailSender.sendEmailsToAllCustomers(consoleServices.readStringFromConsole("subject: "), consoleServices.readStringFromConsole("message:"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public void mailToAll(){
+        bulkMessage.sendMessagesAllCustomers(display.readStringFromConsole("subject: "), display.readStringFromConsole("message:"));
     }
 
-    public static void updateCustomer(){
-        DatabaseServices.updateStatus("customers", consoleServices.readInt("id: "), consoleServices.readBooleanFromConsole("subscription(true/false): "));
+    public void updateCustomer(){
+        dbServices.updateStatus("customers", display.readInt("id: "), display.readBooleanFromConsole("subscription(true/false): "));
+    }
+
+    public void getAllCustomerData(){
+        dbServices.getAllData("customers");
     }
 }

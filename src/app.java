@@ -1,16 +1,38 @@
+import interfaces.bulkMessageInterface;
+import interfaces.displayInterface;
+import interfaces.manageReminderInterface;
+import interfaces.messageServicesInterface;
+import serviceProviders.*;
 import services.*;
-
+import serviceProviders.manageReminderOfficialServices;
+import serviceProviders.manageReminderPersonalServices;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class app {
     @SuppressWarnings("InfiniteLoopStatement")
     public static void main(String[] args)  {
+        manageReminderInterface mR_OfficialObj = new manageReminderOfficialServices();
+        manageReminderInterface mR_PersonalObj = new manageReminderPersonalServices();
+        manageReminder mR_Official = new manageReminder(mR_OfficialObj);
+        manageReminder mR_Personal = new manageReminder(mR_PersonalObj);
+
+        customerServices customerServices = new customerServices();
+
+        displayInterface console = new consoleServices();
+        displayServices display= new displayServices(console);
+
+        messageServicesInterface email= new emailServices();
+        messageServices messageService = new messageServices(email);
+
+        bulkMessageInterface emailBulk = new bulkEmailSender();
+        bulkMessageSender bulkMessage= new bulkMessageSender(emailBulk);
+
 
         do {
             //send automatic email if there's reminder to be sent
-            automaticEmailSender.startNotification("personal");
-            automaticEmailSender.startNotification("official");
+            bulkMessage.startNotification("personal");
+            bulkMessage.startNotification("official");
 
             Scanner scanner = new Scanner(System.in);
             System.out.println("""
@@ -34,54 +56,51 @@ public class app {
                 continue;
             }
 
-             manageReminderOfficial mR_Official = new manageReminderOfficial();
-             manageReminderPersonal mR_Personal = new manageReminderPersonal();
-
             switch(option){
                 case 1:
-                    int choice = consoleServices.choose();
+                    int choice = display.choose();
                     if(choice==1){
-                        mR_Personal.addReminder("personal");
+                        mR_Personal.addReminder();
                     }
                     else if (choice ==2) {
-                        mR_Official.addReminder("official");
+                        mR_Official.addReminder();
                     }
                     else{
                         System.out.println("Wrong input!");
                     }
                     break;
                 case 2:
-                    int choice1 = consoleServices.choose();
+                    int choice1 = display.choose();
                     if(choice1==1){
-                        mR_Personal.viewReminders("personal");
+                        mR_Personal.viewReminders();
                     }
                     else if (choice1 ==2) {
-                        mR_Official.viewReminders("official");
+                        mR_Official.viewReminders();
                     }
                     else{
                         System.out.println("Wrong input!");
                     }
                     break;
                 case 3:
-                    int choice2 = consoleServices.choose();
+                    int choice2 = display.choose();
                     if(choice2==1){
-                        mR_Personal.editReminder("personal",consoleServices.readInt("id: "), consoleServices.readBooleanFromConsole("state(true/false): "));
+                        mR_Personal.editReminder();
                     }
                     else if (choice2 ==2) {
-                        mR_Official.editReminder("official",consoleServices.readInt("id: "),consoleServices.readBooleanFromConsole("state(true/false): "));
+                        mR_Official.editReminder();
                     }
                     else{
                         System.out.println("Wrong input!");
                     }
                     break;
                 case 4:
-                    int choice3 = consoleServices.choose();
+                    int choice3 = display.choose();
                     if(choice3==1){
 
-                        mR_Personal.deleteReminder("personal");
+                        mR_Personal.deleteReminder();
                     }
                     else if (choice3 ==2) {
-                        mR_Official.deleteReminder("official");
+                        mR_Official.deleteReminder();
                     }
                     else{
                         System.out.println("Wrong input!");
@@ -91,7 +110,7 @@ public class app {
                     customerServices.addCustomer();
                     break;
                 case 6:
-                    DatabaseServices.getAllData("customers");
+                    customerServices.getAllCustomerData();
                     break;
                 case 7:
                     customerServices.updateCustomer();
@@ -100,7 +119,7 @@ public class app {
                     customerServices.removeCustomer();
                     break;
                 case 9:
-                    mailServices.sendEmail();
+                    messageService.sendMessage();
                     break;
                 case 10:
                     customerServices.mailToAll();

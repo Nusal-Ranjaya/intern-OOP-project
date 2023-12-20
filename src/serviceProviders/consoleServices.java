@@ -1,5 +1,5 @@
-package services;
-
+package serviceProviders;
+import interfaces.displayInterface;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,14 +9,14 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class consoleServices {
+public class consoleServices implements displayInterface {
 
-    public static Date readDate(){
+    public Date readDate(){
         String dateString = readStringFromConsole("Enter date (YYYY-MM-DD): ");
         return Date.valueOf(dateString);
     }
 
-    public static Time readTime() {Scanner scanner = new Scanner(System.in);
+    public Time readTime() {Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter time (HH:MM): ");
         String timeString = scanner.nextLine();
@@ -35,7 +35,7 @@ public class consoleServices {
         }
     }
 
-    public static Integer readInt(String message){
+    public Integer readInt(String message){
         System.out.println(message);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
@@ -45,7 +45,7 @@ public class consoleServices {
         }
     }
 
-    public static Boolean readBooleanFromConsole(String message) {
+    public Boolean readBooleanFromConsole(String message) {
         System.out.print(message);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
@@ -55,7 +55,7 @@ public class consoleServices {
         }
     }
 
-    public static String readStringFromConsole(String message) {
+    public String readStringFromConsole(String message) {
         System.out.print(message);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
@@ -65,7 +65,7 @@ public class consoleServices {
         }
     }
 
-    public static  int  choose(){
+    public int  choose(){
         int val=0;
         Scanner scanner = new Scanner(System.in);
         System.out.println("""
