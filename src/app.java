@@ -1,7 +1,4 @@
-import interfaces.bulkMessageInterface;
-import interfaces.displayInterface;
-import interfaces.manageReminderInterface;
-import interfaces.messageServicesInterface;
+import interfaces.*;
 import serviceProviders.*;
 import services.*;
 import serviceProviders.manageReminderOfficialServices;
@@ -27,6 +24,9 @@ public class app {
 
         bulkMessageInterface emailBulk = new bulkEmailSender();
         bulkMessageSender bulkMessage= new bulkMessageSender(emailBulk);
+
+        subscriberInterface customer = new customerServices();
+        subscriberServices subService = new subscriberServices(customer);
 
 
         do {
@@ -107,16 +107,16 @@ public class app {
                     }
                     break;
                 case 5:
-                    customerServices.addCustomer();
+                    subService.addSubscriber();
                     break;
                 case 6:
-                    customerServices.getAllCustomerData();
+                    subService.getAllSubscriberData();
                     break;
                 case 7:
-                    customerServices.updateCustomer();
+                    subService.updateSubscriber();
                     break;
                 case 8:
-                    customerServices.removeCustomer();
+                    subService.removeSubscriber();
                     break;
                 case 9:
                     messageService.sendMessage();
