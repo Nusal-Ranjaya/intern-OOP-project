@@ -122,10 +122,11 @@ public class app {
                     messageService.sendMessage();
                     break;
                 case 10:
-                    customerServices.mailToAll();
+                    subService.mailToAll();
                     break;
             }
         }while(true);
+
 
     }
 }
