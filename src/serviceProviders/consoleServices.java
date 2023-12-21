@@ -65,7 +65,7 @@ public class consoleServices implements displayInterface {
         }
     }
 
-    public int  choose(){
+    public int  chooseReminder(){
         int val=0;
         Scanner scanner = new Scanner(System.in);
         System.out.println("""
@@ -82,6 +82,25 @@ public class consoleServices implements displayInterface {
         val = switch (option) {
             case 1 -> 1;
             case 2 -> 2;
+            default -> val;
+        };
+        return val;
+    }
+    public int  chooseSubscriber(){
+        int val=0;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("""
+                Enter option type:\s
+                1 - customer""");
+        int option = 0;
+        try {
+            option = scanner.nextInt();
+        }catch(NumberFormatException e) {
+            System.out.println("Wrong input");
+        }
+
+        val = switch (option) {
+            case 1 -> 1;
             default -> val;
         };
         return val;

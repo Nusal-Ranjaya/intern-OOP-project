@@ -31,7 +31,11 @@ public class displayServices {
         return displayObj.readStringFromConsole(message);
     }
 
-    public int  choose(){
-        return displayObj.choose();
+    public int  chooseReminder(){
+        return displayObj.chooseReminder();
+    }
+
+    public int  chooseSubscriber(){
+        return displayObj.chooseSubscriber();
     }
 }

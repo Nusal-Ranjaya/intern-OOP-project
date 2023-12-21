@@ -14,5 +14,6 @@ public interface displayInterface {
 
     String readStringFromConsole(String message);
 
-    int  choose();
+    int  chooseReminder();
+    int  chooseSubscriber();
 }

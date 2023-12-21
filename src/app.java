@@ -1,32 +1,21 @@
 import interfaces.*;
 import serviceProviders.*;
 import services.*;
-import serviceProviders.manageReminderOfficialServices;
-import serviceProviders.manageReminderPersonalServices;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class app {
     @SuppressWarnings("InfiniteLoopStatement")
     public static void main(String[] args)  {
-        manageReminderInterface mR_OfficialObj = new manageReminderOfficialServices();
-        manageReminderInterface mR_PersonalObj = new manageReminderPersonalServices();
-        manageReminder mR_Official = new manageReminder(mR_OfficialObj);
-        manageReminder mR_Personal = new manageReminder(mR_PersonalObj);
 
-        customerServices customerServices = new customerServices();
-
-        displayInterface console = new consoleServices();
-        displayServices display= new displayServices(console);
+        reminderFactory factoryR= new reminderFactory();
+        subscriberFactory factoryS = new subscriberFactory();
 
         messageServicesInterface email= new emailServices();
         messageServices messageService = new messageServices(email);
 
         bulkMessageInterface emailBulk = new bulkEmailSender();
         bulkMessageSender bulkMessage= new bulkMessageSender(emailBulk);
-
-        subscriberInterface customer = new customerServices();
-        subscriberServices subService = new subscriberServices(customer);
 
 
         do {
@@ -41,12 +30,12 @@ public class app {
                     2 - view all reminders
                     3 - edit a current reminder state
                     4 - delete a reminder
-                    5 - Add new customer
-                    6 - view all customers
-                    7 - change customer subscription
-                    8 - Remove customer from the table
+                    5 - Add new subscriber
+                    6 - view all subscribers
+                    7 - change subscriber subscription
+                    8 - Remove subscriber from the table
                     9 - send an email
-                    10 - send email to all customers""");
+                    10 - send email to all subscriber""");
             int option;
             try {
                 option = scanner.nextInt();
@@ -58,71 +47,34 @@ public class app {
 
             switch(option){
                 case 1:
-                    int choice = display.choose();
-                    if(choice==1){
-                        mR_Personal.addReminder();
-                    }
-                    else if (choice ==2) {
-                        mR_Official.addReminder();
-                    }
-                    else{
-                        System.out.println("Wrong input!");
-                    }
+                    factoryR.getReminderObj().addReminder();
                     break;
                 case 2:
-                    int choice1 = display.choose();
-                    if(choice1==1){
-                        mR_Personal.viewReminders();
-                    }
-                    else if (choice1 ==2) {
-                        mR_Official.viewReminders();
-                    }
-                    else{
-                        System.out.println("Wrong input!");
-                    }
+                    factoryR.getReminderObj().viewReminders();
                     break;
                 case 3:
-                    int choice2 = display.choose();
-                    if(choice2==1){
-                        mR_Personal.editReminder();
-                    }
-                    else if (choice2 ==2) {
-                        mR_Official.editReminder();
-                    }
-                    else{
-                        System.out.println("Wrong input!");
-                    }
+                    factoryR.getReminderObj().editReminder();
                     break;
                 case 4:
-                    int choice3 = display.choose();
-                    if(choice3==1){
-
-                        mR_Personal.deleteReminder();
-                    }
-                    else if (choice3 ==2) {
-                        mR_Official.deleteReminder();
-                    }
-                    else{
-                        System.out.println("Wrong input!");
-                    }
+                    factoryR.getReminderObj().deleteReminder();
                     break;
                 case 5:
-                    subService.addSubscriber();
+                    factoryS.getSubscriberObj().addSubscriber();
                     break;
                 case 6:
-                    subService.getAllSubscriberData();
+                    factoryS.getSubscriberObj().getAllSubscriberData();
                     break;
                 case 7:
-                    subService.updateSubscriber();
+                    factoryS.getSubscriberObj().updateSubscriber();
                     break;
                 case 8:
-                    subService.removeSubscriber();
+                    factoryS.getSubscriberObj().removeSubscriber();
                     break;
                 case 9:
                     messageService.sendMessage();
                     break;
                 case 10:
-                    subService.mailToAll();
+                    factoryS.getSubscriberObj().mailToAll();
                     break;
             }
         }while(true);
