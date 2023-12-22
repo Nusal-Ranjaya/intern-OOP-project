@@ -1,6 +1,5 @@
 package serviceProviders;
 import configurations.EmailConfig;
-import interfaces.displayInterface;
 import interfaces.messageServicesInterface;
 import services.displayServices;
 
@@ -8,10 +7,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class emailServices implements messageServicesInterface {
-    displayInterface console = new consoleServices();
-    displayServices display= new displayServices(console);
 
-    public void sendMessage() {
+
+    public void sendMessage(displayServices display) {
 
         String to =display.readStringFromConsole("to: ");
 

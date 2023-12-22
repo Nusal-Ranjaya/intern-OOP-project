@@ -1,21 +1,15 @@
 package serviceProviders;
 import interfaces.bulkMessageInterface;
-import interfaces.dataServicesInterface;
-import interfaces.messageServicesInterface;
 import services.databaseServices;
 import services.messageServices;
-
 import java.sql.*;
 import java.time.LocalDate;
 
 public class bulkEmailSender implements bulkMessageInterface {
-    messageServicesInterface email= new emailServices();
-    messageServices messageService = new messageServices(email);
-    dataServicesInterface dbServicesPost =new DatabaseServicesPostgresql();
-    databaseServices dbServices = new databaseServices(dbServicesPost);
+
 
     @SuppressWarnings({"UnusedAssignment", "ConstantValue"})
-    public void startNotification(String tableName){
+    public void startNotification(String tableName,databaseServices dbServices,messageServices messageService){
         String to = "muthuthanthrigenr.20@uom.lk";
         boolean loop=true;
         do{
@@ -43,7 +37,7 @@ public class bulkEmailSender implements bulkMessageInterface {
         }while(loop);
 
     }
-    public void sendMessagesAllCustomers(String message,String subject) throws SQLException {
+    public void sendMessagesAllCustomers(String message,String subject,messageServices messageService) throws SQLException {
         String sql = "SELECT * FROM customers ";
         try (Connection con = DriverManager.getConnection(DatabaseServicesPostgresql.url, DatabaseServicesPostgresql.userName, DatabaseServicesPostgresql.password);
              Statement statement = con.createStatement();

@@ -8,20 +8,29 @@ public class app {
     @SuppressWarnings("InfiniteLoopStatement")
     public static void main(String[] args)  {
 
+        // ALl objects needed
+        displayInterface console = new consoleServices();//console
+        displayServices display= new displayServices(console);
+
+        dataServicesInterface dbServicesPost =new DatabaseServicesPostgresql();//postgresql
+        databaseServices dbServices = new databaseServices(dbServicesPost);
+
+        messageServicesInterface email= new emailServices();//email
+        messageServices messageService = new messageServices(email);
+
+        bulkMessageInterface emailBulk = new bulkEmailSender();//email
+        bulkMessageSender bulkMessage= new bulkMessageSender(emailBulk);
+
+        ////////////////////
         reminderFactory factoryR= new reminderFactory();
         subscriberFactory factoryS = new subscriberFactory();
 
-        messageServicesInterface email= new emailServices();
-        messageServices messageService = new messageServices(email);
-
-        bulkMessageInterface emailBulk = new bulkEmailSender();
-        bulkMessageSender bulkMessage= new bulkMessageSender(emailBulk);
-
+        ////////////////////
 
         do {
             //send automatic email if there's reminder to be sent
-            bulkMessage.startNotification("personal");
-            bulkMessage.startNotification("official");
+            bulkMessage.startNotification("personal",dbServices,messageService);
+            bulkMessage.startNotification("official",dbServices,messageService);
 
             Scanner scanner = new Scanner(System.in);
             System.out.println("""
@@ -47,35 +56,37 @@ public class app {
 
             switch(option){
                 case 1:
-                    factoryR.getReminderObj().addReminder();
+                    factoryR.getReminderObj().addReminder(display,dbServices);
                     break;
                 case 2:
-                    factoryR.getReminderObj().viewReminders();
+                    factoryR.getReminderObj().viewReminders(dbServices);
                     break;
                 case 3:
-                    factoryR.getReminderObj().editReminder();
+                    factoryR.getReminderObj().editReminder(display,dbServices);
                     break;
                 case 4:
-                    factoryR.getReminderObj().deleteReminder();
+                    factoryR.getReminderObj().deleteReminder(display,dbServices);
                     break;
                 case 5:
-                    factoryS.getSubscriberObj().addSubscriber();
+                    factoryS.getSubscriberObj().addSubscriber(display,dbServices);
                     break;
                 case 6:
-                    factoryS.getSubscriberObj().getAllSubscriberData();
+                    factoryS.getSubscriberObj().getAllSubscriberData(dbServices);
                     break;
                 case 7:
-                    factoryS.getSubscriberObj().updateSubscriber();
+                    factoryS.getSubscriberObj().updateSubscriber(display,dbServices);
                     break;
                 case 8:
-                    factoryS.getSubscriberObj().removeSubscriber();
+                    factoryS.getSubscriberObj().removeSubscriber(display,dbServices);
                     break;
                 case 9:
-                    messageService.sendMessage();
+                    messageService.sendMessage(display);
                     break;
                 case 10:
-                    factoryS.getSubscriberObj().mailToAll();
+                    factoryS.getSubscriberObj().mailToAll(display,bulkMessage,messageService);
                     break;
+                default:
+                    System.out.println("Wrong input!");
             }
         }while(true);
 

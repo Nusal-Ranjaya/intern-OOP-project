@@ -1,12 +1,15 @@
 package interfaces;
 
+import services.databaseServices;
+import services.displayServices;
+
 public interface manageReminderInterface {
 
-    void addReminder();
+    void addReminder(displayServices display, databaseServices dbServices);
 
-    void viewReminders();
+    void viewReminders(databaseServices dbServices);
 
-    void editReminder();
+    void editReminder(displayServices display, databaseServices dbServices);
 
-    void deleteReminder();
+    void deleteReminder(displayServices display, databaseServices dbServices);
 }

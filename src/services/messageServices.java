@@ -8,8 +8,8 @@ public class messageServices {
     public messageServices(messageServicesInterface messageObj) {
         this.messageObj = messageObj;
     }
-    public void sendMessage(){
-        messageObj.sendMessage();
+    public void sendMessage(displayServices display){
+        messageObj.sendMessage(display);
     }
 
     public void sendAutoMessage(String to, String subject, String message){

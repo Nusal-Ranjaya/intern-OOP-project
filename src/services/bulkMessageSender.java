@@ -11,12 +11,12 @@ public class bulkMessageSender {
         this.bulkMessages = bulkMessages;
     }
 
-    public void startNotification(String tableName){
-        bulkMessages.startNotification(tableName);
+    public void startNotification(String tableName,databaseServices dbServices, messageServices messageService){
+        bulkMessages.startNotification(tableName,dbServices,messageService);
     }
-    public void sendMessagesAllCustomers(String message, String subject)  {
+    public void sendMessagesAllCustomers(String message,String subject,messageServices messageService)  {
         try {
-            bulkMessages.sendMessagesAllCustomers(message,subject);
+            bulkMessages.sendMessagesAllCustomers(message,subject,messageService);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -1,13 +1,18 @@
 package interfaces;
 
+import services.bulkMessageSender;
+import services.databaseServices;
+import services.displayServices;
+import services.messageServices;
+
 public interface subscriberInterface {
-    void addSubscriber();
+    void addSubscriber(displayServices display, databaseServices dbServices);
 
-    void removeSubscriber();
+    void removeSubscriber(displayServices display,databaseServices dbServices);
 
-    void mailToAll();
+    void mailToAll(displayServices display, bulkMessageSender bulkMessage, messageServices messageService);
 
-    void updateSubscriber();
+    void updateSubscriber(displayServices display,databaseServices dbServices);
 
-    void getAllSubscriberData();
+    void getAllSubscriberData(databaseServices dbServices);
 }

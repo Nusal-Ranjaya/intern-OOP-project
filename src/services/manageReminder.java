@@ -9,19 +9,19 @@ public class manageReminder {
         this.mrObj = mrObj;
     }
 
-    public void addReminder(){
-        mrObj.addReminder();
+    public void addReminder(displayServices display, databaseServices dbServices){
+        mrObj.addReminder(display,dbServices);
     }
 
-    public void viewReminders(){
-        mrObj.viewReminders();
+    public void viewReminders(databaseServices dbServices){
+        mrObj.viewReminders(dbServices);
     }
 
-    public void editReminder(){
-        mrObj.editReminder();
+    public void editReminder(displayServices display, databaseServices dbServices){
+        mrObj.editReminder(display,dbServices);
     }
 
-    public void deleteReminder(){
-        mrObj.deleteReminder();
+    public void deleteReminder(displayServices display, databaseServices dbServices){
+        mrObj.deleteReminder(display,dbServices);
     }
 }

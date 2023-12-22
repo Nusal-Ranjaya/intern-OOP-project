@@ -1,43 +1,33 @@
 package serviceProviders;
 
-import interfaces.bulkMessageInterface;
-import interfaces.dataServicesInterface;
-import interfaces.displayInterface;
 import interfaces.subscriberInterface;
-import serviceProviders.DatabaseServicesPostgresql;
-import serviceProviders.bulkEmailSender;
-import serviceProviders.consoleServices;
 import services.bulkMessageSender;
 import services.databaseServices;
 import services.displayServices;
+import services.messageServices;
 
 
 public class customerServices implements subscriberInterface {
-    displayInterface console = new consoleServices();
-    displayServices display= new displayServices(console);
-    bulkMessageInterface emailBulk = new bulkEmailSender();
-    bulkMessageSender bulkMessage= new bulkMessageSender(emailBulk);
 
-    dataServicesInterface dbServicesPost =new DatabaseServicesPostgresql();
-    databaseServices dbServices = new databaseServices(dbServicesPost);
-    public void addSubscriber(){
+
+    public void addSubscriber(displayServices display,databaseServices dbServices){
         int pk= dbServices.getNumberOfEntries("customers");
         dbServices.addDataCustomer(pk+1, display.readStringFromConsole("Customer name: "), display.readBooleanFromConsole("Enter subscription(true/false): "), display.readStringFromConsole("Enter email:"));
     }
 
-    public void removeSubscriber(){
+    public void removeSubscriber(displayServices display,databaseServices dbServices){
         dbServices.deleteDataById("customers", display.readInt("Enter id: "));
     }
 
-    public void mailToAll(){
-        bulkMessage.sendMessagesAllCustomers(display.readStringFromConsole("subject: "), display.readStringFromConsole("message:"));
+    public void mailToAll(displayServices display,bulkMessageSender bulkMessage,messageServices messageService){
+        bulkMessage.sendMessagesAllCustomers(display.readStringFromConsole("subject: "), display.readStringFromConsole("message:"),messageService);
     }
 
-    public void updateSubscriber(){
+    public void updateSubscriber(displayServices display,databaseServices dbServices){
         dbServices.updateStatus("customers", display.readInt("id: "), display.readBooleanFromConsole("subscription(true/false): "));
     }
 
-    public void getAllSubscriberData(){
+    public void getAllSubscriberData(databaseServices dbServices){
         dbServices.getAllData("customers");
     }
 }
