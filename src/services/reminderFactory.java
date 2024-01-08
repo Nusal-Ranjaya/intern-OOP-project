@@ -6,7 +6,7 @@ import serviceProviders.consoleServices;
 import serviceProviders.manageReminderOfficialServices;
 import serviceProviders.manageReminderPersonalServices;
 
-public class reminderFactory {
+public class      reminderFactory {
     manageReminderInterface mR_OfficialObj = new manageReminderOfficialServices();
     manageReminderInterface mR_PersonalObj = new manageReminderPersonalServices();
 
